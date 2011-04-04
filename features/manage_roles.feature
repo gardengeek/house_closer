@@ -22,6 +22,7 @@ Feature: Manage roles
     Then I should see the following roles:
       |Title|
       |admin|
-      |title 1|
+      |manager|
+      |title 2|
       |title 3|
       |title 4|

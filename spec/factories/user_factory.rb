@@ -26,3 +26,11 @@ Factory.define :admin_user, :parent => :user do |a|
     ]
   }
 end
+
+Factory.define :manager_user, :parent => :user do |m|
+  m.roles { |user|
+    [
+      Role.find_by_title('manager') || Factory(:role, :title => 'manager')
+    ]
+  }
+end
