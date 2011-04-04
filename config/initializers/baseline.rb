@@ -1,6 +1,6 @@
 module Baseline
   AppName = 'HouseCloser'
-  DefaultHost = 'housecloser.com'
+  DefaultHost = 'housecloser.heroku.com'
   EmailSender = "#{AppName} <noreply@#{DefaultHost}>"
 
   if defined?(Rails)
