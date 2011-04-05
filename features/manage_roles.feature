@@ -18,11 +18,12 @@ Feature: Manage roles
       |title 2|
       |title 3|
       |title 4|
-    When I delete the 3rd role
+    When I delete the 4th role
     Then I should see the following roles:
       |Title|
       |admin|
       |manager|
+      |agent|
       |title 2|
       |title 3|
       |title 4|

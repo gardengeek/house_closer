@@ -6,3 +6,7 @@ roles_1:
 roles_2:
   title: manager
   id: 2
+
+role_3:
+  title: agent
+  id: 3

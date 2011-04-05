@@ -34,3 +34,11 @@ Factory.define :manager_user, :parent => :user do |m|
     ]
   }
 end
+
+Factory.define :agent_user, :parent => :user do |m|
+  m.roles { |user|
+    [
+      Role.find_by_title('agent') || Factory(:role, :title => 'agent')
+    ]
+  }
+end
