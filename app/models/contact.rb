@@ -1,6 +1,7 @@
 class Contact < ActiveRecord::Base
 
   belongs_to :state
+  has_many :leads
 
   validates_presence_of :first_name,
     :last_name
@@ -16,4 +17,7 @@ class Contact < ActiveRecord::Base
       errors.add(:base,"Home phone, cell phone, work phone or email must have a value")
     end    
   end
+
+
+  scope :no_lead, :conditions => [ 'contacts.id not IN (select distinct(contact_id) from leads)'], :order => 'last_name, first_name'
 end

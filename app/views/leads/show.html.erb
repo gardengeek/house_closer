@@ -1,0 +1,18 @@
+<p>
+  <b>Agent:</b>
+  <%= @lead.agent.try(:name) %>
+</p>
+
+<p>
+  <b>Contact:</b>
+  <%= @lead.contact.try(:name) %>
+</p>
+
+<p>
+  <b>Note:</b>
+  <%= @lead.note %>
+</p>
+
+
+<%= link_to 'Edit', edit_lead_path(@lead) %> |
+<%= link_to 'Back', leads_path %>

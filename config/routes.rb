@@ -1,7 +1,9 @@
 HouseCloser::Application.routes.draw do
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
+  resources :leads
   resources :contacts
   resources :roles
   resources :users do

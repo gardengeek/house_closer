@@ -39,6 +39,7 @@
             <li><%= link_to_unless_current "My Account", account_path %></li>
             <% if current_user.has_role?(:admin) %>
               <li><%= link_to_unless_current 'Users', users_path %></li>
+              <li><%= link_to_unless_current 'Leads', leads_path %></li>
             <% end %>
             <% if current_user.has_role?(:admin) || current_user.has_role?(:manager) %>
               <li><%= link_to_unless_current 'Contacts', contacts_path %></li>
