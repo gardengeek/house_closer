@@ -6,6 +6,18 @@ class Contact < ActiveRecord::Base
   validates_presence_of :first_name,
     :last_name
 
+  attr_accessible :first_name,
+    :last_name,
+    :home_phone,
+    :cell_phone,
+    :work_phone,
+    :email,
+    :address_line_1,
+    :address_line_2,
+    :city,
+    :postal_code,
+    :state_id
+
   def name
     "#{first_name} #{last_name}"
   end
