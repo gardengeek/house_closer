@@ -4,4 +4,8 @@ class Lead < ActiveRecord::Base
 
   validates_presence_of :contact_id,
     :agent_id
+
+  attr_accessible :agent_id,
+    :contact_id,
+    :note
 end
