@@ -1,0 +1,18 @@
+<h2><%= @contact.name %></h2>
+<table>
+  <tr><th>Home phone:</th><td><%= @contact.home_phone %></td></tr>
+  <tr><th>Cell phone:</th><td><%= @contact.cell_phone %></td></tr>
+  <tr><th>Work phone:</th><td><%= @contact.work_phone %></td></tr>
+  <tr><th>Email:</th><td><%= @contact.email %></td></tr>
+  <tr>
+    <th>Address</th>
+    <td>
+      <%= @contact.address_line_1 %><br />
+      <%= @contact.address_line_2 %><%= raw "<br>" if !@contact.address_line_2.blank? %>
+      <%= @contact.city %> <%= @contact.state.try(:code) %> <%= @contact.postal_code %><br>
+    </td>
+  </tr>
+</table>
+
+<%= link_to 'Edit', edit_contact_path(@contact) %> |
+<%= link_to 'Back', contacts_path %>

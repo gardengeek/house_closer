@@ -2,3 +2,7 @@
 roles_1: 
   title: admin
   id: 1
+
+roles_2:
+  title: manager
+  id: 2
