@@ -2,11 +2,25 @@ require 'spec_helper'
 
 describe "leads/new.html.erb" do
   before(:each) do
+    @contact = assign(:contact, stub_model(Contact,
+      :first_name => "MyString",
+      :last_name => "MyString",
+      :home_phone => "MyString",
+      :cell_phone => "MyString",
+      :work_phone => "MyString",
+      :email => "MyString",
+      :address_line_1 => "MyString",
+      :address_line_2 => "MyString",
+      :city => "MyString",
+      :postal_code => "MyString",
+      :state_id => 1
+    ))
     assign(:lead, stub_model(Lead,
       :agent_id => 1,
-      :contact_id => 1,
+      :contact_id => @contact,
       :note => "MyText"
     ).as_new_record)
+    view.stub(:current_user).and_return(stub_model(User))
   end
 
   it "renders new lead form" do

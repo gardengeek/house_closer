@@ -1,5 +1,7 @@
 Given /^the following leads:$/ do |leads|
-  Lead.create!(leads.hashes)
+  leads.hashes.each do |lead|
+    Factory(:lead,lead)
+  end
 end
 
 When /^I delete the (\d+)(?:st|nd|rd|th) lead$/ do |pos|

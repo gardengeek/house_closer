@@ -2,10 +2,6 @@ class LeadsController < ApplicationController
   before_filter :authenticate
   load_and_authorize_resource
 
-  rescue_from CanCan::AccessDenied do |exception|
-    redirect_to :new
-  end
-
   # GET /leads
   # GET /leads.xml
   def index
@@ -18,6 +14,7 @@ class LeadsController < ApplicationController
   # GET /leads/1
   # GET /leads/1.xml
   def show
+    @contact = Contact.find(@lead.contact_id)
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @lead }
@@ -27,7 +24,7 @@ class LeadsController < ApplicationController
   # GET /leads/new
   # GET /leads/new.xml
   def new
-    @lead = Lead.new
+    @contact = Contact.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -42,16 +39,21 @@ class LeadsController < ApplicationController
   # POST /leads
   # POST /leads.xml
   def create
-    @lead = Lead.new(params[:lead])
-
-    respond_to do |format|
-      if @lead.save
-        format.html { redirect_to(@lead, :notice => 'Lead was successfully created.') }
-        format.xml  { render :xml => @lead, :status => :created, :location => @lead }
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @lead.errors, :status => :unprocessable_entity }
+    Lead.transaction do
+      if !@lead.contact
+        @lead.contact = Contact.create(params[:contact])
       end
+      @contact = @lead.contact
+      respond_to do |format|
+        if @lead.save
+          format.html { redirect_to(@lead, :notice => 'Lead was successfully created.') }
+          format.xml  { render :xml => @lead, :status => :created, :location => @lead }
+        else
+          format.html { render :action => "new" }
+          format.xml  { render :xml => @lead.errors, :status => :unprocessable_entity }
+        end
+      end
+      raise ActiveRecord::Rollback if @lead.new_record? || @lead.contact.new_record?
     end
   end
 

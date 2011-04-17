@@ -7,6 +7,7 @@ describe "leads/edit.html.erb" do
       :contact_id => 1,
       :note => "MyText"
     ))
+    view.stub(:current_user).and_return(nil)
   end
 
   it "renders the edit lead form" do
@@ -14,7 +15,6 @@ describe "leads/edit.html.erb" do
 
     assert_select "form", :action => leads_path(@lead), :method => "post" do
       assert_select "input#lead_agent_id", :name => "lead[agent_id]"
-      assert_select "select#lead_contact_id", :name => "lead[contact_id]"
       assert_select "textarea#lead_note", :name => "lead[note]"
     end
   end

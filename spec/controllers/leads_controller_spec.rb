@@ -10,6 +10,10 @@ describe LeadsController do
     @mock_lead ||= mock_model(Lead, stubs).as_null_object
   end
 
+  def mock_contact(stubs={})
+    @mock_contact ||= mock_model(Contact, stubs).as_null_object
+  end
+
   before(:each) do
     controller.stub!(:current_user).and_return(Factory.build(:admin_user))
   end
@@ -27,9 +31,12 @@ describe LeadsController do
 
   describe "GET show" do
     it "assigns the requested lead as @lead" do
-      Lead.stub(:find).with("37") { mock_lead }
+      @mock_lead = mock_lead(:contact_id => "42")
+      Lead.stub(:find).with("37") { @mock_lead }
+      Contact.stub(:find).with(@mock_lead.contact_id) { mock_contact }
       get :show, :id => "37"
       assigns(:lead).should be(mock_lead)
+      assigns(:contact).should be(mock_contact)
     end
   end
 
@@ -73,6 +80,7 @@ describe LeadsController do
 
       it "re-renders the 'new' template" do
         Lead.stub(:new) { mock_lead(:save => false) }
+        Contact.stub(:new) { mock_contact }
         post :create, :lead => {}
         response.should render_template("new")
       end

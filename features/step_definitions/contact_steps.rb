@@ -1,5 +1,7 @@
 Given /^the following contacts:$/ do |contacts|
-  Contact.create!(contacts.hashes)
+  contacts.hashes.each do |contact|
+    Factory(:contact, contact)
+  end
 end
 
 When /^I delete the (\d+)(?:st|nd|rd|th) contact$/ do |pos|

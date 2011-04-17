@@ -12,8 +12,8 @@
 
 <% @leads.each do |lead| %>
   <tr>
-    <td><%= lead.agent.try(:name) %></td>
-    <td><%= lead.contact.try(:name) %></td>
+    <td><%= lead.agent.name %></td>
+    <td><%= lead.contact.name %></td>
     <td><%= lead.note %></td>
     <td><%= link_to 'Show', lead %></td>
     <td><%= link_to 'Edit', edit_lead_path(lead) %></td>
