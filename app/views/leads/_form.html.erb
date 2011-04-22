@@ -31,14 +31,16 @@
       <tr><th>Agent:</th><td><%= @lead.agent.try(:name) %></td></tr>
       <tr><th>Contact:</th><td><%= @lead.contact.try(:name) %></td></tr>
     </table>
-    <div>
-      <%= f.label :active %>
-      <%= f.check_box :active %>
-    </div>
+    <% if current_user -%>
+      <div>
+        <%= f.label :active %>
+        <%= f.check_box :active %>
+      </div>
+    <% end -%>
   <% end -%>
   <div class="field">
     <%= f.label :note %>
-    <%= f.text_area :note, :style => "height:8em;width:540px;vertical-align:top;" %>
+    <%= f.text_area :note, :style => "height:8em;width:#{ current_user ? "540" : "700" }px;vertical-align:top;" %>
   </div>
   <div class="actions">
     <%= f.submit %>

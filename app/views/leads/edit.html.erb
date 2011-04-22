@@ -2,5 +2,7 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @lead %> |
-<%= link_to 'Back', leads_path %>
+<%= link_to 'Show', @lead %> 
+<% if current_user -%>
+  | <%= link_to 'Back', leads_path %>
+<% end-%>

@@ -66,6 +66,46 @@ Feature: Manage leads
     Then I should see "Note 2"
       And I should see "successfully updated"
 
+  Scenario: Register new lead when not signed in
+    Given the following agents:
+        |email|first_name|last_name|
+        |email_1@example.com|Alpha|One|
+        |email_2@example.com|Bravo|Two|
+        |email_3@example.com|Charlie|Three|
+        |email_4@example.com|Delta|Four|
+      And I am on the new lead page
+    When I fill in "First name" with "Micky"
+      And I fill in "Last name" with "Mouse"
+      And I fill in "Home phone" with "555.555.1212"
+      And I fill in "Cell phone" with "317.555.1212"
+      And I fill in "Work phone" with "work_phone 1"
+      And I fill in "Email" with "email 1"
+      And I fill in "Address line 1" with "address_line_1 1"
+      And I fill in "Address line 2" with "address_line_2 1"
+      And I fill in "City" with "city 1"
+      And I fill in "Postal code" with "postal_code 1"
+      And I select "Indiana" from "State"
+      And I fill in "Note" with "note 1"
+      And I press "Create"
+    Then I should see "successfully created"
+      And I should see "Micky Mouse"
+      And I should see "555.555.1212"
+      And I should see "317.555.1212"
+      And I should see "work_phone 1"
+      And I should see "email 1"
+      And I should see "address_line_1 1"
+      And I should see "address_line_2 1"
+      And I should see "city 1"
+      And I should see "postal_code 1"
+      And I should see "IN"
+      And I should see "note 1"
+    When I follow "Edit"
+      And I fill in "Note" with "Note 2"
+      And I should not see "Active"
+      And I press "Update"
+    Then I should see "Note 2"
+      And I should see "successfully updated"
+
   Scenario: Create lead with no data
     Given I am signed in as an admin
       And the following agents:

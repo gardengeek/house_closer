@@ -1,6 +1,10 @@
 class LeadsController < ApplicationController
-  before_filter :authenticate
-  load_and_authorize_resource
+  before_filter :lead_cookie_or_auth, :except => [:new, :create]
+  load_and_authorize_resource :except => [:new, :create]
+
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to :new
+  end
 
   # GET /leads
   # GET /leads.xml
@@ -24,6 +28,7 @@ class LeadsController < ApplicationController
   # GET /leads/new
   # GET /leads/new.xml
   def new
+    @lead = Lead.new
     @contact = Contact.new
 
     respond_to do |format|
@@ -39,6 +44,8 @@ class LeadsController < ApplicationController
   # POST /leads
   # POST /leads.xml
   def create
+    @lead = Lead.new(params[:lead])
+
     Lead.transaction do
       if !@lead.contact
         @lead.contact = Contact.create(params[:contact])
@@ -46,6 +53,7 @@ class LeadsController < ApplicationController
       @contact = @lead.contact
       respond_to do |format|
         if @lead.save
+          session[:lead_id] = @lead.id
           format.html { redirect_to(@lead, :notice => 'Lead was successfully created.') }
           format.xml  { render :xml => @lead, :status => :created, :location => @lead }
         else
@@ -80,5 +88,11 @@ class LeadsController < ApplicationController
       format.html { redirect_to(leads_url) }
       format.xml  { head :ok }
     end
+  end
+
+  private
+
+  def lead_cookie_or_auth
+    (Ability.lead_id = session[:lead_id]) || authenticate
   end
 end

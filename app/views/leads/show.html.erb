@@ -13,10 +13,14 @@
       <%= @contact.try(:city) %> <%= @contact.try(:state).try(:code) %> <%= @contact.try(:postal_code) %><br>
     </td>
   </tr>
-  <tr><th>Active:</th><td><%= @lead.active %></td></tr>
+  <% if current_user -%>
+    <tr><th>Active:</th><td><%= @lead.active %></td></tr>
+  <% end -%>
   <tr><th>Note:</th><td><%= @lead.note %></td></tr>
 </table>
 
 
-<%= link_to 'Edit', edit_lead_path(@lead) %> |
-<%= link_to 'Back', leads_path %>
+<%= link_to 'Edit', edit_lead_path(@lead) %>
+<% if current_user -%>
+  | <%= link_to 'Back', leads_path %>
+<% end -%>

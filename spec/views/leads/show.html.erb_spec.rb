@@ -20,6 +20,7 @@ describe "leads/show.html.erb" do
       :contact_id => @contact,
       :note => "MyText"
     ))
+    view.stub(:current_user).and_return(nil)
   end
 
   it "renders attributes in <p>" do
