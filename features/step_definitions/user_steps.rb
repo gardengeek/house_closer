@@ -4,6 +4,13 @@ Given /^the following users:$/ do |users|
   end
 end
 
+Given /^the following agents:$/ do |agents|
+  agents.hashes.each do |agent|
+    Factory(:agent_user,agent)
+  end
+end
+  
+
 Given /^I am signed in as an? (.*)$/ do |title|
   Given 'I am signed in as "insider@example.com/asecret"'
   role = Role.find_by_title(title) || Factory(:role, :title => title)

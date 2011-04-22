@@ -11,10 +11,6 @@
     </div>
   <% end %>
 
-  <div class="required field">
-    <%= f.label :agent_id %>
-    <%= f.text_field :agent_id %>
-  </div>
   <% if @lead.new_record? -%>
     <% if current_user %>
       <div class="required field">
@@ -31,14 +27,18 @@
       </div>
     <% end -%>
   <% else -%>
-    <dl>
-      <dt><b>Contact</b></dt>
-      <dd><%= @lead.contact.try(:name) %></dd>
-    </dl>
+    <table>
+      <tr><th>Agent:</th><td><%= @lead.agent.try(:name) %></td></tr>
+      <tr><th>Contact:</th><td><%= @lead.contact.try(:name) %></td></tr>
+    </table>
+    <div>
+      <%= f.label :active %>
+      <%= f.check_box :active %>
+    </div>
   <% end -%>
   <div class="field">
     <%= f.label :note %>
-    <%= f.text_area :note %>
+    <%= f.text_area :note, :style => "height:8em;width:540px;vertical-align:top;" %>
   </div>
   <div class="actions">
     <%= f.submit %>

@@ -11,20 +11,31 @@ Feature: Manage leads
         |Jerry|Burns|home_phone 2|cell_phone 2|work_phone 2|email 2|address_line_1 2|address_line_2 2|city 2|postal_code 2|2|
         |Jack|Benny|home_phone 3|cell_phone 3|work_phone 3|email 3|address_line_1 3|address_line_2 3|city 3|postal_code 3|3|
         |Mickey|Mouse|home_phone 4|cell_phone 4|work_phone 4|email 4|address_line_1 4|address_line_2 4|city 4|postal_code 4|4|
-    And I am on the new lead page
-    When I fill in "Agent" with "11"
-    And I select "Jerry Burns" from "Contact"
-    And I fill in "Note" with "note 1"
-    And I press "Create"
-    Then I should see "11"
-    And I should see "Jerry Burns"
-    And I should see "note 1"
+      And the following agents:
+        |email|first_name|last_name|
+        |email_1@example.com|Alpha|One|
+        |email_2@example.com|Bravo|Two|
+        |email_3@example.com|Charlie|Three|
+        |email_4@example.com|Delta|Four|
+      And I am on the new lead page
+    When I select "Jerry Burns" from "Contact"
+      And I fill in "Note" with "note 1"
+      And I press "Create"
+    Then I should see "successfully created"
+      And I should see "Alpha One"
+      And I should see "Jerry Burns"
+      And I should see "note 1"
 
   Scenario: Register new lead with new contact
     Given I am signed in as an admin
+      And the following agents:
+        |email|first_name|last_name|
+        |email_1@example.com|Alpha|One|
+        |email_2@example.com|Bravo|Two|
+        |email_3@example.com|Charlie|Three|
+        |email_4@example.com|Delta|Four|
       And I am on the new lead page
-    When I fill in "Agent" with "11"
-      And I fill in "First name" with "Micky"
+    When I fill in "First name" with "Micky"
       And I fill in "Last name" with "Mouse"
       And I fill in "Home phone" with "555.555.1212"
       And I fill in "Cell phone" with "317.555.1212"
@@ -57,16 +68,19 @@ Feature: Manage leads
 
   Scenario: Create lead with no data
     Given I am signed in as an admin
+      And the following agents:
+        |email|first_name|last_name|
+        |email_1@example.com|Alpha|One|
+        |email_2@example.com|Bravo|Two|
+        |email_3@example.com|Charlie|Three|
+        |email_4@example.com|Delta|Four|
       And I am on the new lead page
       And I press "Create"
     Then I should see "3 errors prohibited this contact from being saved"
-      And I should see "2 errors prohibited this lead from being saved"
+      And I should see "1 error prohibited this lead from being saved"
     When I fill in "First name" with "Micky"
       And I fill in "Last name" with "Mouse"
       And I fill in "Home phone" with "555.555.1212"
-      And I press "Create"
-      And I should see "1 error prohibited this lead from being saved"
-    When I fill in "Agent" with "11"
       And I press "Create"
     Then I should see "successfully created"
       And I should see "Micky Mouse"
@@ -94,7 +108,7 @@ Feature: Manage leads
       And I am signed in as an admin
     When I delete the 3rd lead
     Then I should see the following leads:
-      |Agent|Contact|Note|
-      |Alpha Jones|Minnie Mouse|note 1|
-      |Bravo Jones|Jerry Burns|note 2|
-      |Delta Jones|Mickey Mouse|note 4|
+      |Agent|Contact|Active|
+      |Alpha Jones|Minnie Mouse|true|
+      |Bravo Jones|Jerry Burns|true|
+      |Delta Jones|Mickey Mouse|true|

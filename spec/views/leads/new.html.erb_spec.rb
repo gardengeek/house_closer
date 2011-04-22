@@ -27,7 +27,6 @@ describe "leads/new.html.erb" do
     render
 
     assert_select "form", :action => leads_path, :method => "post" do
-      assert_select "input#lead_agent_id", :name => "lead[agent_id]"
       assert_select "select#lead_contact_id", :name => "lead[contact_id]"
       assert_select "textarea#lead_note", :name => "lead[note]"
     end

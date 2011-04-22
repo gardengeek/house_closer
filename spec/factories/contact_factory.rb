@@ -6,6 +6,6 @@ end
 
 Factory.define :lead_contact, :parent => :contact do |l|
   l.leads { |contact|
-    [ Factory.build(:lead, :contact_id => :lead_contact, :agent_id => Factory.build(:agent_user))]
+    [ Factory.create(:lead, :contact_id => :lead_contact, :agent_id => Factory.create(:agent_user))]
   }
 end

@@ -13,6 +13,7 @@
       <%= @contact.try(:city) %> <%= @contact.try(:state).try(:code) %> <%= @contact.try(:postal_code) %><br>
     </td>
   </tr>
+  <tr><th>Active:</th><td><%= @lead.active %></td></tr>
   <tr><th>Note:</th><td><%= @lead.note %></td></tr>
 </table>
 

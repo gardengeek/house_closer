@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :roles
   belongs_to :country
   belongs_to :state
+  has_many :leads
 
   attr_accessible :email,
     :first_name,

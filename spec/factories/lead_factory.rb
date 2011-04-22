@@ -1,4 +1,4 @@
 Factory.define :lead do |l|
-  l.agent { |a| User.find(:first)}
-  l.contact { |c| Contact.find(:first) }
+  l.agent { |a| Factory.create(:agent_user)}
+  l.contact { |c| Factory.create(:contact) }
 end

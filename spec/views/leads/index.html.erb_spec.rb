@@ -16,12 +16,14 @@ describe "leads/index.html.erb" do
       stub_model(Lead,
         :agent => @agent,
         :contact => @contact,
-        :note => "MyText"
+        :note => "MyText",
+        :active => true
       ),
       stub_model(Lead,
         :agent => @agent,
         :contact => @contact,
-        :note => "MyText"
+        :note => "MyText",
+        :active => true
       )
     ])
   end
@@ -30,6 +32,6 @@ describe "leads/index.html.erb" do
     render
     assert_select "tr>td", :text => "Mary Jones".to_s, :count => 2
     assert_select "tr>td", :text => "Pat Smith".to_s, :count => 2
-    assert_select "tr>td", :text => "MyText".to_s, :count => 2
+    assert_select "tr>td", :text => "true".to_s, :count => 2
   end
 end
