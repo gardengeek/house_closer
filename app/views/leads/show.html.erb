@@ -1,16 +1,16 @@
 <table>
   <tr><th>Agent:</th><td><%= @lead.agent.try(:name) %></td></tr>
   <tr><th>Contact:</th><td><%= @lead.contact.try(:name) %></td></tr>
-  <tr><th>Home phone:</th><td><%= @contact.try(:home_phone) %></td></tr>
-  <tr><th>Cell phone:</th><td><%= @contact.try(:cell_phone) %></td></tr>
-  <tr><th>Work phone:</th><td><%= @contact.try(:work_phone) %></td></tr>
-  <tr><th>Email:</th><td><%= @contact.try(:email) %></td></tr>
+  <tr><th>Home phone:</th><td><%= @lead.contact.try(:home_phone) %></td></tr>
+  <tr><th>Cell phone:</th><td><%= @lead.contact.try(:cell_phone) %></td></tr>
+  <tr><th>Work phone:</th><td><%= @lead.contact.try(:work_phone) %></td></tr>
+  <tr><th>Email:</th><td><%= @lead.contact.try(:email) %></td></tr>
   <tr>
     <th>Address</th>
     <td>
-      <%= @contact.try(:address_line_1) %><br />
-      <%= @contact.try(:address_line_2) %><%= raw "<br>" if @contact && !@contact.address_line_2.blank? %>
-      <%= @contact.try(:city) %> <%= @contact.try(:state).try(:code) %> <%= @contact.try(:postal_code) %><br>
+      <%= @lead.contact.try(:address_line_1) %><br />
+      <%= @lead.contact.try(:address_line_2) %><%= raw "<br>" if @lead.contact && !@lead.contact.address_line_2.blank? %>
+      <%= @lead.contact.try(:city) %> <%= @lead.contact.try(:state).try(:code) %> <%= @lead.contact.try(:postal_code) %><br>
     </td>
   </tr>
   <% if current_user -%>

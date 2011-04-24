@@ -24,6 +24,7 @@ describe LeadsController do
       Lead.should_receive(:scoped).with() { @leads }
       @leads.should_receive(:where).with() { @leads }
       @leads.should_receive(:joins).with() { @leads }
+      @leads.should_receive(:find).with(:all, :include => [:contact, :agent]) { @leads }
       get :index
       assigns(:leads).should eq([mock_lead])
     end
@@ -33,10 +34,8 @@ describe LeadsController do
     it "assigns the requested lead as @lead" do
       @mock_lead = mock_lead(:contact_id => "42")
       Lead.stub(:find).with("37") { @mock_lead }
-      Contact.stub(:find).with(@mock_lead.contact_id) { mock_contact }
       get :show, :id => "37"
       assigns(:lead).should be(mock_lead)
-      assigns(:contact).should be(mock_contact)
     end
   end
 

@@ -9,6 +9,7 @@ class LeadsController < ApplicationController
   # GET /leads
   # GET /leads.xml
   def index
+    @leads = @leads.find(:all, :include => [:contact, :agent])
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @leads }
@@ -18,7 +19,6 @@ class LeadsController < ApplicationController
   # GET /leads/1
   # GET /leads/1.xml
   def show
-    @contact = Contact.find(@lead.contact_id)
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @lead }
