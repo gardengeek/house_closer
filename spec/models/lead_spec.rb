@@ -22,28 +22,44 @@ describe Lead do
     end
 
     describe 'lead without agent' do
-      describe 'when there are agents with no active leads' do
-        describe 'when agent has no leads' do
+      describe 'when there are agents with no leads' do
+        describe 'when there are agents with active leads' do
           before(:each) do
             Factory.create(:lead, :agent => @agent)
             @lead = Factory.build(:lead, :agent => nil)
           end
 
-          it 'assigns agent with no active leads' do
+          it 'assigns agent with no leads' do
             @lead.save
             @lead.agent_id.should == @agent2.id
           end
         end
-        describe 'when agent has only inactive leads' do
+
+        describe 'when there are agents with only inactive leads' do
           before(:each) do
             Factory.create(:lead, :agent => @agent, :active => false)
             @lead = Factory.build(:lead, :agent => nil)
           end
 
-          it 'assigns agent with no active leads' do
+          it 'assigns agent with no leads' do
             @lead.save
-            @lead.agent_id.should == @agent.id
+            @lead.agent_id.should == @agent2.id
           end
+        end
+      end
+
+      describe 'when all agents have leads (inactive and active)' do
+        before(:each) do
+          @agent3 = Factory.create(:agent_user, :first_name => 'Sammy')
+          Factory.create(:lead, :agent => @agent3, :active => true, :created_at => Date.today - 3.days)
+          Factory.create(:lead, :agent => @agent2, :active => false, :created_at => Date.today - 2.days)
+          Factory.create(:lead, :agent => @agent, :active => false, :created_at => Date.today - 1.days)
+          @lead = Factory.build(:lead, :agent => nil)
+        end
+
+        it 'assigns agent with oldest inactive lead' do
+          @lead.save
+          @lead.agent_id.should == @agent2.id
         end
       end
 
